@@ -54,12 +54,11 @@ steps:
 # ...
 # do this near the end of your pipeline in most cases
 - script: dotnet pack /p:PackageVersion=$(version)  # define version variable elsewhere in your pipeline
-- task: NuGetAuthenticate@0
-  displayName: 'NuGet Authenticate'
+  inputs:
+    nuGetServiceConnections: 'NuGetService'
 - task: NuGetCommand@2
   inputs:
     command: 'push'
     packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
-    nuGetFeedType: 'internal'
-    publishVstsFeed: '<projectName>/<feed>'
-    allowPackageConflicts: true
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'NuGetService'
