@@ -23,7 +23,7 @@ steps:
 - task: UseDotNet@2
   inputs:
     packageType: 'runtime'
-    version: '3.0.x'
+    version: '5.0.x'
 
 # do this before your build tasks
 - task: DotNetCoreCLI@2
